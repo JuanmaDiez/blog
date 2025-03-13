@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <th:block th:replace="fragments/styles"></th:block>
+    <title>Blog</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div> <div th:replace="fragments/header :: header"></div>
+<section id="seccionMedia">
+    <div class="container">
+        <form action="/" class="mt-4 crearArticulo" method="get">
+            <div class="p-4">
+                <div class="mb-3">
+                    <label class="form-label">Buscar por autor</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="authorFilter"
+                            name="authorFilter"
+                            placeholder="Ingrese autor..."
+                    />
+                </div>
+            </div>
+        </form>
+        <form action="/" class="mt-4 crearArticulo" method="get">
+            <div class="p-4">
+                <div class="mb-3">
+                    <label class="form-label">Buscar por título</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="titleFilter"
+                            name="titleFilter"
+                            placeholder="Ingrese título..."
+                    />
+                </div>
+            </div>
+        </form>
+<!--        <% for (let article of articles.reverse()) { %>-->
+
+<!--        <div class="divArticuloHome">-->
+<!--            <a href="/articles/<%-article.id%> " class="tituloArticulo"> <%= article.title %> </a>-->
+<!--            <small class="fechaArticulo"-->
+<!--            >Creado por <%= article.user.firstname + " " + article.user.lastname %> el-->
+<!--                <%=article.createdAt.toLocaleDateString('es-ES',{year: 'numeric', month: 'long', day:-->
+<!--                'numeric'}) %></small-->
+<!--            >-->
+<!--            <hr class="divisor" />-->
+<!--        </div>-->
+<!--        <% } %>-->
+    </div>
+</section>
+<div th:replace="fragments/footer :: footer"></div>  <div th:replace="fragments/script :: script"></div>
+</body>
+</html>
