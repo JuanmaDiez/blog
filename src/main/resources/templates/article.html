@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <th:block th:replace="fragments/styles"></th:block>
+    <title>Article</title>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="fragments/header :: header"></div>
+<div class=" d-flex justify-content-between ">
+    <a th:href="|/articles/${(article.id - 1)}|" type="button">Anterior</a>
+    <a th:href="|/articles/${(article.id + 1)}|" type="button">Siguiente</a>
+</div>
+
+<div class="container p-4" id="contenedorArticulo">
+    <h4 class="d-flex justify-content-center" th:text="${article.title}"></h4>
+    <p class="d-flex justify-content-center" th:text="${article.content}"></p>
+    <span class="d-flex justify-content-between">
+        <small class="autor" th:text="|Autor: ${article.author.firstname} ${article.author.lastname}|">Autor: <%= article.user.firstname %> <%= article.user.lastname %></small>
+        <small th:text="${article.createdAt}"></small>
+      </span>
+    <div class="container">
+        <form th:action="|/articles/${article.id}/comments|" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <h4>Comentar</h4>
+                <div class="mb-3">
+              <textarea
+                      name="ingresarComentario"
+                      class="form-control"
+                      id="ingresarComentario"
+                      rows="5"
+                      placeholder="Ingresar comentario..."
+              ></textarea>
+                </div>
+                <button type="submit" class="btn mb-3 btn-success">Comentar</button>
+            </div>
+        </form>
+        <h4 th:text="|Comentarios ${article.comments.size()}|"></h4>
+        <div th:each="comment : ${article.comments}">
+            <div class="d-flex border-top flex-column mt-4">
+                <small class="autor pb-3"
+                       th:text="|Autor: ${comment.author.firstname} ${comment.author.lastname}|">
+                </small>
+                <p th:text="${comment.content}"></p>
+            </div>
+        </div>
+        <div class="d-flex mt-4 justify-content-between">
+            <a href="/" class="btn btn-primary">Home</a>
+        </div>
+
+    </div>
+</div>
+
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/script :: script"></div>
+</body>
+</html>

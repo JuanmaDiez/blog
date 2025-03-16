@@ -28,6 +28,10 @@ public class ArticleService {
         return this.articleRepository.findAllByOrderByCreatedAtDesc();
     }
 
+    public Article getArticle(Long id) {
+        return this.articleRepository.findById(id).orElseThrow();
+    }
+
     @Transactional
     public void addArticles() {
         User john = new User();

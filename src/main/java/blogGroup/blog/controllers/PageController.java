@@ -5,6 +5,7 @@ import blogGroup.blog.services.ArticleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -23,5 +24,13 @@ public class PageController {
         List<Article> articles = articleService.getArticlesForHome(null);
         model.addAttribute("articles", articles);
         return "home";
+    }
+
+    @GetMapping
+    @RequestMapping("/articles/{id}")
+    public String getArticlePage(@PathVariable Long id, Model model) {
+        Article article = articleService.getArticle(id);
+        model.addAttribute("article", article);
+        return "article";
     }
 }
