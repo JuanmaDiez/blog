@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <th:block th:replace="fragments/styles"></th:block>
+    <title>Register</title>
+</head>
+<body>
+<div th:replace="fragmnets/navbar :: navbar"></div>
+<div th:replace="fragments/navbar :: header"></div>
+<div class="container">
+    <form action="/users" method="post">
+        <div class="mb-3">
+            <label class="form-label">First Name</label>
+            <input type="text" name="firstName" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Last Name</label>
+            <input type="text" name="lastName" class="form-control"/>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Email address</label>
+            <input
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    aria-describedby="emailHelp"
+            />
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/script :: script"></div>
+</body>
+</html>

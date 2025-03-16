@@ -33,4 +33,9 @@ public class PageController {
         model.addAttribute("article", article);
         return "article";
     }
+
+    @RequestMapping("/register")
+    public String getRegisterPage() {
+        return "register";
+    }
 }

@@ -1,16 +1,17 @@
 <nav id="navbar" th:fragment="navbar">
     <div class="d-flex justify-content-between align-items-center">
         <h4 class="navbarTitle">Hack de blog</h4>
-<!--        <% if (!user) { %> -->
-        <div>
-            <a href="/login" class="btn btn-primary">Login</a>
-            <a href="/register" class="btn btn-primary">Register</a>
-        </div>
-<!--        <% } else { %>-->
-<!--        <div>-->
-<!--            <a href="/admin" id="button" class="btn btn-primary">Admin</a>-->
-<!--            <a href="/" id="button" class="btn btn-danger">Log Out</a>-->
-<!--        </div>-->
-<!--        <% } %>-->
+        <th:block th:unless="${user}">
+            <div>
+                <a href="/login" class="btn btn-primary">Login</a>
+                <a href="/register" class="btn btn-primary">Register</a>
+            </div>
+        </th:block>
+        <th:block th:if="${user}">
+            <div>
+                <a href="/admin" class="btn btn-primary">Admin</a>
+                <a href="/" class="btn btn-danger">Log Out</a>
+            </div>
+        </th:block>
     </div>
 </nav>
