@@ -1,5 +1,7 @@
 package blogGroup.blog.services;
 
+import blogGroup.blog.dtos.UserRequestDTO;
+import blogGroup.blog.entities.User;
 import blogGroup.blog.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -9,5 +11,10 @@ public class UserService {
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+    }
+
+    public void saveUser(UserRequestDTO userRequest) {
+        User newUser = new User(userRequest.getFirstname(), userRequest.getLastname(), userRequest.getEmail(), userRequest.getPassword());
+        userRepository.save(newUser);
     }
 }
