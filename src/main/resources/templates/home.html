@@ -9,7 +9,8 @@
     <title>Blog</title>
 </head>
 <body>
-<div th:replace="fragments/navbar :: navbar"></div> <div th:replace="fragments/header :: header"></div>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div th:replace="fragments/header :: header"></div>
 <section id="seccionMedia">
     <div class="container">
         <form action="/" class="mt-4 crearArticulo" method="get">
@@ -40,20 +41,17 @@
                 </div>
             </div>
         </form>
-<!--        <% for (let article of articles.reverse()) { %>-->
-
-<!--        <div class="divArticuloHome">-->
-<!--            <a href="/articles/<%-article.id%> " class="tituloArticulo"> <%= article.title %> </a>-->
-<!--            <small class="fechaArticulo"-->
-<!--            >Creado por <%= article.user.firstname + " " + article.user.lastname %> el-->
-<!--                <%=article.createdAt.toLocaleDateString('es-ES',{year: 'numeric', month: 'long', day:-->
-<!--                'numeric'}) %></small-->
-<!--            >-->
-<!--            <hr class="divisor" />-->
-<!--        </div>-->
-<!--        <% } %>-->
+        <div th:each="article : ${articles}">
+            <div class="divArticuloHome">
+                <a th:href="|/articles/${article.id}|" class="tituloArticulo" th:text="${article.title}"></a>
+                <small class="fechaArticulo" th:text="|Creado por ${article.author.firstname} ${article.author.lastname} el
+                    ${article.createdAt}|"></small>
+                <hr class="divisor"/>
+            </div>
+        </div>
     </div>
 </section>
-<div th:replace="fragments/footer :: footer"></div>  <div th:replace="fragments/script :: script"></div>
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/script :: script"></div>
 </body>
 </html>

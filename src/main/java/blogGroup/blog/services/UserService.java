@@ -1,7 +1,6 @@
-package blogGroup.blog.Services;
+package blogGroup.blog.services;
 
-import blogGroup.blog.Entities.User;
-import blogGroup.blog.Repositories.UserRepository;
+import blogGroup.blog.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 @Service

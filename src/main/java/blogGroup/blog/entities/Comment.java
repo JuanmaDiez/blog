@@ -1,7 +1,7 @@
-package blogGroup.blog.Entities;
+package blogGroup.blog.entities;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -9,8 +9,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
+import java.time.LocalDateTime;
+
 @Entity
-@Table(name = "commments")
+@Table(name = "comments")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +21,9 @@ public class Comment {
 
     @Column(name = "content")
     private String content;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "article_id")
@@ -44,6 +49,14 @@ public class Comment {
         this.content = content;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public Article getArticle() {
         return this.article;
     }
@@ -65,8 +78,9 @@ public class Comment {
         return "Comment{" +
                 "id=" + this.id +
                 "content='" + this.content + '\'' +
+                "createdAt=" + this.createdAt +
                 ", article=" + this.article.getTitle() +
-                ", author=" + this.author.getFirstName() + " " + this.author.getLastname() +
+                ", author=" + this.author.getFirstname() + " " + this.author.getLastname() +
                 '}';
     }
 }

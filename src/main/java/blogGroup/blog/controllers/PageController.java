@@ -1,7 +1,7 @@
-package blogGroup.blog.Controllers;
+package blogGroup.blog.controllers;
 
-import blogGroup.blog.Entities.Article;
-import blogGroup.blog.Services.ArticleService;
+import blogGroup.blog.entities.Article;
+import blogGroup.blog.services.ArticleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

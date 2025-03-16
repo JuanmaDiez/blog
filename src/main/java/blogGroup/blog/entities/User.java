@@ -1,13 +1,15 @@
-package blogGroup.blog.Entities;
+package blogGroup.blog.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Column;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,7 +21,7 @@ public class User {
     private Long id;
 
     @Column(name = "firstname")
-    private String firstName;
+    private String firstname;
 
     @Column(name = "lastname")
     private String lastname;
@@ -30,11 +32,11 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "author")
-    private Set<Article> articles;
+    @Column(name = "createdAt")
+    private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "author")
-    private Set<Comment> comments;
+    private Set<Article> articles = new HashSet<>();
 
     public Long getId() {
         return this.id;
@@ -44,12 +46,12 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return this.firstName;
+    public String getFirstname() {
+        return this.firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
     public String getLastname() {
@@ -76,14 +78,41 @@ public class User {
         this.password = password;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Set<Article> getArticles() {
+        return this.articles;
+    }
+
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
+    }
+
+    public void addArticle(Article article) {
+        this.articles.add(article);
+        article.setAuthor(this);
+    }
+
+    public void removeArticle(Article article) {
+        this.articles.remove(article);
+        article.setAuthor(null);
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
+                ", firstName='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", createdAt=" + createdAt +
                 '}';
     }
 }
