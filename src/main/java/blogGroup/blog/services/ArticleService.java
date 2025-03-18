@@ -32,6 +32,10 @@ public class ArticleService {
         return this.articleRepository.findById(id).orElseThrow();
     }
 
+    public List<Article> getArticlesForAdmin() {
+        return this.articleRepository.findAll();
+    }
+
     @Transactional
     public void addArticles() {
         User john = new User();

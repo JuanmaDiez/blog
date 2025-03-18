@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <th:block th:replace="fragments/styles"></th:block>
+    <title>Admin</title>
+</head>
+<body>
+<div th:replace="fragments/navbar-admin :: navbar-admin"></div>
+<div class="m-3 d-flex justify-content-between" id="adminCrearLink">
+    <p class="m-4">
+        Crear un articulo: <a href="/admin/articles/create" class="btn btn-success">Aqui</a>
+    </p>
+    <span>
+        <a href="/admin/users" class="btn btn-primary d-flex m-4 align-items-center">Users</a>
+        <a href="/admin/comments" class="btn btn-primary d-flex m-4 align-items-center"
+        >Comentarios</a
+        >
+      </span>
+</div>
+
+<table class="container d-flex justify-content-center mt-4" id="adminTable">
+    <tr>
+        <th>Id</th>
+        <th>Titulo</th>
+        <th>Contenido</th>
+        <th>Acciones</th>
+    </tr>
+    <div th:each="article : ${articles}">
+        <tr th:id="|articulo${article.id}|">
+            <td th:text="${article.id}"></td>
+            <td th:text="${article.title}"></td>
+            <td><p class="contenidoArticulo" th:text="${article.content}"></p></td>
+            <!--            <td>-->
+            <!--                <img-->
+            <!--                        class="img-fluid img-articulo"-->
+            <!--                        src="/img/uploads/<%= article.img %>"-->
+            <!--                        alt="foto del articulo"-->
+            <!--                />-->
+            <!--            </td>-->
+            <td>
+          <span>
+            <a th:href="|/admin/articles/${article.id}/edit|" class="btn btn-danger">Modificar</a>
+            <form th:action="|/admin/articles/${article.id}/delete|" method="post">
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+          </span>
+            </td>
+        </tr>
+    </div>
+</table>
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/script :: script"></div>
+</body>
+</html>

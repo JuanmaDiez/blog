@@ -38,4 +38,11 @@ public class PageController {
     public String getRegisterPage() {
         return "register";
     }
+
+    @RequestMapping("/admin")
+    public String getAdminPage(Model model) {
+        List<Article> articles = articleService.getArticlesForAdmin();
+        model.addAttribute("articles", articles);
+        return "admin";
+    }
 }
