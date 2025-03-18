@@ -1,7 +1,9 @@
 package blogGroup.blog.controllers;
 
 import blogGroup.blog.entities.Article;
+import blogGroup.blog.entities.Comment;
 import blogGroup.blog.services.ArticleService;
+import blogGroup.blog.services.CommentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +15,11 @@ import java.util.List;
 @Controller
 public class PageController {
     private final ArticleService articleService;
+    private final CommentService commentService;
 
-    public PageController(ArticleService articleService) {
+    public PageController(ArticleService articleService, CommentService commentService) {
         this.articleService = articleService;
+        this.commentService = commentService;
     }
 
     @GetMapping
@@ -49,5 +53,12 @@ public class PageController {
     @RequestMapping("/admin/articles/create")
     public String getCreateArticle() {
         return "createArticle";
+    }
+
+    @RequestMapping("/admin/comments")
+    public String getComments(Model model) {
+        List<Comment> comments = commentService.getComments();
+        model.addAttribute("comments", comments);
+        return "comments";
     }
 }

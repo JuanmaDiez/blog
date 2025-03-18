@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <th:block th:replace="fragments/styles"></th:block>
+    <title>Comments</title>
+</head>
+<body>
+<div th:replace="fragments/navbar-admin :: navbar-admin"></div>
+<table class="container d-flex justify-content-center mt-4" id="adminTable">
+    <tr>
+        <th>Id</th>
+        <th>Autor</th>
+        <th>Contenido</th>
+        <th>Acciones</th>
+    </tr>
+    <div th:each="comment : ${comments}">
+        <tr id="|comentario${comment.id}|">
+            <td th:text="${comment.id}"></td>
+            <td th:text="|${comment.author.firstname} ${comment.author.lastname}|"></td>
+            <td th:text="${comment.content}"></td>
+            <td>
+              <span>
+                <a th:href="|/admin/comments/edit/${comment.id}|" class="btn btn-warning">Editar</a>
+                <a th:href="|/admin/comments/delete/${comment.id}|" class="btn btn-danger">
+                    Eliminar
+                </a>
+              </span>
+            </td>
+        </tr>
+    </div>
+</table>
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/script :: script"></div>
+</body>
+</html>
