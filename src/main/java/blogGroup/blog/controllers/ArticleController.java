@@ -3,7 +3,9 @@ package blogGroup.blog.controllers;
 import blogGroup.blog.dtos.ArticleRequestDTO;
 import blogGroup.blog.services.ArticleService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,7 +20,13 @@ public class ArticleController {
 
     @PostMapping
     public String store(@ModelAttribute ArticleRequestDTO articleRequestDTO) {
-        articleService.createArticle(articleRequestDTO);
+        this.articleService.createArticle(articleRequestDTO);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        this.articleService.deleteArticle(id);
         return "redirect:/admin";
     }
 }

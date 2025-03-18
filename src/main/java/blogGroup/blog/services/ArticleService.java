@@ -36,13 +36,21 @@ public class ArticleService {
     public List<Article> getArticlesForAdmin() {
         return this.articleRepository.findAll();
     }
-    
+
     public void createArticle(ArticleRequestDTO articleRequestDTO) {
         User author = this.userRepository.findById(1L).orElseThrow();
         Article newArticle = new Article(articleRequestDTO.getTitle(), articleRequestDTO.getContent());
         author.addArticle(newArticle);
-        articleRepository.save(newArticle);
-        userRepository.save(author);
+        this.articleRepository.save(newArticle);
+        this.userRepository.save(author);
+    }
+
+    public void deleteArticle(Long id) {
+        Article article = this.articleRepository.findById(id).orElseThrow();
+        User author = article.getAuthor();
+        author.removeArticle(article);
+
+        this.articleRepository.delete(article);
     }
 
     @Transactional

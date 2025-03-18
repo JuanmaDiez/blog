@@ -40,13 +40,9 @@
             <!--                        alt="foto del articulo"-->
             <!--                />-->
             <!--            </td>-->
-            <td>
-          <span>
-            <a th:href="|/admin/articles/${article.id}/edit|" class="btn btn-warning">Modificar</a>
-            <form th:action="|/admin/articles/${article.id}/delete|" method="post">
-              <button type="submit" class="btn btn-danger">Eliminar</button>
-            </form>
-          </span>
+            <td class="d-flex">
+                <a th:href="|/admin/articles/edit/${article.id}|" class="btn btn-warning">Modificar</a>
+                <a th:href="|/articles/delete/${article.id}|" class="btn btn-danger">Eliminar</a>
             </td>
         </tr>
     </div>
