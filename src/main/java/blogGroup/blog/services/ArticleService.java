@@ -1,5 +1,6 @@
 package blogGroup.blog.services;
 
+import blogGroup.blog.dtos.ArticleRequestDTO;
 import blogGroup.blog.entities.Article;
 import blogGroup.blog.entities.Comment;
 import blogGroup.blog.entities.User;
@@ -34,6 +35,14 @@ public class ArticleService {
 
     public List<Article> getArticlesForAdmin() {
         return this.articleRepository.findAll();
+    }
+    
+    public void createArticle(ArticleRequestDTO articleRequestDTO) {
+        User author = this.userRepository.findById(1L).orElseThrow();
+        Article newArticle = new Article(articleRequestDTO.getTitle(), articleRequestDTO.getContent());
+        author.addArticle(newArticle);
+        articleRepository.save(newArticle);
+        userRepository.save(author);
     }
 
     @Transactional

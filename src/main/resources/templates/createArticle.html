@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <th:block th:replace="fragments/styles"></th:block>
+    <title>Crear Articulo</title>
+</head>
+<body>
+<div th:replace="fragments/navbar-admin :: navbar-admin"></div>
+<div class="d-flex justify-content-center container mt-4 p-4">
+    <h5>Publicar un nuevo articulo</h5>
+</div>
+<div class="container">
+    <form
+            action="/articles"
+            class="mt-4 crearArticulo"
+            method="post"
+    >
+        <div class="p-4">
+            <div class="mb-3">
+                <label class="form-label">Titulo</label>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="crearTitulo"
+                        name="title"
+                        placeholder="Ingresar título..."
+                />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Contenido</label>
+                <textarea
+                        class="form-control"
+                        id="crearContenido"
+                        rows="3"
+                        name="content"
+                        placeholder="Ingresar texto..."
+                ></textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Crear</button>
+        </div>
+    </form>
+    <a class="back btn btn-link" href="/admin"> <i class="fa-solid fa-left-long"></i> Volver </a>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="fragments/script :: script"></div>
+</body>
+</html>

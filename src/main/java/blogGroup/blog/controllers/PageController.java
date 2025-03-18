@@ -45,4 +45,9 @@ public class PageController {
         model.addAttribute("articles", articles);
         return "admin";
     }
+
+    @RequestMapping("/admin/articles/create")
+    public String getCreateArticle() {
+        return "createArticle";
+    }
 }

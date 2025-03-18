@@ -38,6 +38,16 @@ public class Article {
     @OneToMany(mappedBy = "article")
     private Set<Comment> comments = new HashSet<>();
 
+    public Article() {
+        this.createdAt = LocalDateTime.now();
+    }
+
+    public Article(String title, String content) {
+        this.title = title;
+        this.content = content;
+        this.createdAt = LocalDateTime.now();
+    }
+
     public long getId() {
         return this.id;
     }
