@@ -33,6 +33,15 @@ public class Comment {
     @JoinColumn(name = "user_id")
     private User author;
 
+    public Comment() {
+
+    }
+
+    public Comment(String content) {
+        this.content = content;
+        this.createdAt = LocalDateTime.now();
+    }
+
     public Long getId() {
         return this.id;
     }

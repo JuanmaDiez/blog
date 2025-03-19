@@ -11,31 +11,32 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 <div th:replace="fragments/header :: header"></div>
 <div class=" d-flex justify-content-between ">
-    <a th:href="|/articles/${(article.id - 1)}|" type="button">Anterior</a>
-    <a th:href="|/articles/${(article.id + 1)}|" type="button">Siguiente</a>
+    <a th:href="|/articles/${(article.id - 1)}|" type="button">Previous</a>
+    <a th:href="|/articles/${(article.id + 1)}|" type="button">Next</a>
 </div>
 
 <div class="container p-4" id="contenedorArticulo">
     <h4 class="d-flex justify-content-center" th:text="${article.title}"></h4>
     <p class="d-flex justify-content-center" th:text="${article.content}"></p>
     <span class="d-flex justify-content-between">
-        <small class="autor" th:text="|Autor: ${article.author.firstname} ${article.author.lastname}|">Autor: <%= article.user.firstname %> <%= article.user.lastname %></small>
+        <small class="autor" th:text="|Autor: ${article.author.firstname} ${article.author.lastname}|">Author: <%= article.user.firstname %> <%= article.user.lastname %></small>
         <small th:text="${article.createdAt}"></small>
       </span>
     <div class="container">
-        <form th:action="|/articles/${article.id}/comments|" method="post" enctype="multipart/form-data">
+        <form action="/comments" method="post">
             <div class="mb-3">
-                <h4>Comentar</h4>
+                <h4>Comment</h4>
                 <div class="mb-3">
               <textarea
-                      name="ingresarComentario"
+                      name="content"
                       class="form-control"
                       id="ingresarComentario"
                       rows="5"
                       placeholder="Ingresar comentario..."
               ></textarea>
+                    <input type="hidden" th:value="${article.id}" name="articleId"/>
                 </div>
-                <button type="submit" class="btn mb-3 btn-success">Comentar</button>
+                <button type="submit" class="btn mb-3 btn-success">Comment</button>
             </div>
         </form>
         <h4 th:text="|Comentarios ${article.comments.size()}|"></h4>
