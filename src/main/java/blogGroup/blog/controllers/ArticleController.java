@@ -24,6 +24,12 @@ public class ArticleController {
         return "redirect:/admin";
     }
 
+    @PostMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, @ModelAttribute ArticleRequestDTO articleRequestDTO) {
+        this.articleService.editArticle(id, articleRequestDTO);
+        return "redirect:/admin";
+    }
+
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         this.articleService.deleteArticle(id);

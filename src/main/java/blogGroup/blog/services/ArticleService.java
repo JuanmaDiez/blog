@@ -45,6 +45,13 @@ public class ArticleService {
         this.userRepository.save(author);
     }
 
+    public void editArticle(Long id, ArticleRequestDTO articleRequestDTO) {
+        Article article = this.articleRepository.findById(id).orElseThrow();
+        if (articleRequestDTO.getTitle() != null) article.setTitle(articleRequestDTO.getTitle());
+        if (articleRequestDTO.getContent() != null) article.setContent(articleRequestDTO.getContent());
+        this.articleRepository.save(article);
+    }
+
     public void deleteArticle(Long id) {
         Article article = this.articleRepository.findById(id).orElseThrow();
         User author = article.getAuthor();

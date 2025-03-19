@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <th:block th:replace="fragments/styles"></th:block>
+    <title>Edit Article</title>
+</head>
+<body>
+<div th:replace="fragments/navbar-admin :: navbar-admin"></div>
+<div class="d-flex justify-content-center container mt-4 p-4">
+    <h5 th:text='|Edit the article: "${article.title}"|'></h5>
+</div>
+<div class="container">
+    <form
+            method="post"
+            th:action="|/articles/edit/${article.id}|"
+    >
+        <div class="container mt-4 crearArticulo">
+            <div class="container p-4">
+                <div class="mb-3">
+                    <label class="form-label">Title</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="modificarTitulo"
+                            name="title"
+                            th:value="${article.title}"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Content</label>
+                    <textarea
+                            class="form-control"
+                            id="modificarContenido"
+                            rows="3"
+                            name="content"
+                            th:text="${article.content}"
+                    ></textarea
+                    >
+                    <br/>
+                    <label th:text="|Created by ${article.author.firstname} ${article.author.lastname}|">
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-success">Edit</button>
+            </div>
+        </div>
+    </form>
+    <a class="back" href="/admin"> <i class="fa-solid fa-left-long"></i> Return </a>
+    <div th:replace="fragments/footer :: footer"></div>
+    <div th:replace="fragments/script :: script"></div>
+</div>
+</body>
+</html>

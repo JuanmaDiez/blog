@@ -55,6 +55,13 @@ public class PageController {
         return "createArticle";
     }
 
+    @RequestMapping("/admin/articles/edit/{id}")
+    public String getEditArticle(@PathVariable Long id, Model model) {
+        Article article = articleService.getArticle(id);
+        model.addAttribute("article", article);
+        return "editArticle";
+    }
+
     @RequestMapping("/admin/comments")
     public String getComments(Model model) {
         List<Comment> comments = commentService.getComments();
