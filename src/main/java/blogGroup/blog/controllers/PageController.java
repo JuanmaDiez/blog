@@ -86,4 +86,11 @@ public class PageController {
         model.addAttribute("users", users);
         return "users";
     }
+
+    @RequestMapping("/admin/users/edit/{id}")
+    public String getEditUser(@PathVariable Long id, Model model) {
+        User user = this.userService.getUser(id);
+        model.addAttribute("user", user);
+        return "editUser";
+    }
 }

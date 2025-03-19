@@ -24,6 +24,12 @@ public class UserController {
         return "redirect:/";
     }
 
+    @PostMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, @ModelAttribute UserRequestDTO userRequestDTO) {
+        this.userService.editUser(id, userRequestDTO);
+        return "redirect:/admin/users";
+    }
+
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         this.userService.deleteUser(id);

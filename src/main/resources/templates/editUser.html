@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <th:block th:replace="fragments/styles"></th:block>
+</head>
+<body>
+<div th:replace="fragments/navbar-admin :: navbar-admin"></div>
+<div class="d-flex justify-content-center container mt-4 p-4">
+    <h5 th:text="|Edit user: ${user.firstname} ${user.lastname}|"></h5>
+</div>
+<div class="container">
+    <form
+            method="post"
+            th:action="|/users/edit/${user.id}|"
+    >
+        <div class="container mt-4 crearArticulo">
+            <div class="container p-4">
+                <div class="mb-3">
+                    <label class="form-label">Firstname</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="editName"
+                            name="firstname"
+                            th:value="${user.firstname}"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Lastname</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="editLastname"
+                            name="lastname"
+                            th:value="${user.lastname}"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="editEmail"
+                            name="email"
+                            th:value="${user.email}"
+                    />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input
+                            type="password"
+                            class="form-control"
+                            id="editPassword"
+                            name="password"
+                            th:value="${user.password}"
+                    />
+                </div>
+                <!--                <div class="mb-3">-->
+                <!--                    <label class="form-label">Role</label>-->
+                <!--                    <input-->
+                <!--                            type="number"-->
+                <!--                            class="form-control"-->
+                <!--                            id="editRole"-->
+                <!--                            name="editRole"-->
+                <!--                            value="<%= user.role%>"-->
+                <!--                    />-->
+                <!--                </div>-->
+                <br/>
+                <button type="submit" class="btn btn-success">Edit</button>
+            </div>
+        </div>
+    </form>
+    <a class="back" href="/admin/users"> <i class="fa-solid fa-left-long"></i> Return </a>
+</div>
+</body>
+</html>

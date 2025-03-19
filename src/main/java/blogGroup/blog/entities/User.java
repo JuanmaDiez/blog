@@ -82,7 +82,7 @@ public class User {
         this.email = email;
     }
 
-    private String getPassword() {
+    public String getPassword() {
         return this.password;
     }
 
