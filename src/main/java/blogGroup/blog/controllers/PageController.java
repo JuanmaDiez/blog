@@ -2,8 +2,10 @@ package blogGroup.blog.controllers;
 
 import blogGroup.blog.entities.Article;
 import blogGroup.blog.entities.Comment;
+import blogGroup.blog.entities.User;
 import blogGroup.blog.services.ArticleService;
 import blogGroup.blog.services.CommentService;
+import blogGroup.blog.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +18,12 @@ import java.util.List;
 public class PageController {
     private final ArticleService articleService;
     private final CommentService commentService;
+    private final UserService userService;
 
-    public PageController(ArticleService articleService, CommentService commentService) {
+    public PageController(ArticleService articleService, CommentService commentService, UserService userService) {
         this.articleService = articleService;
         this.commentService = commentService;
+        this.userService = userService;
     }
 
     @GetMapping
@@ -74,5 +78,12 @@ public class PageController {
         Comment comment = this.commentService.getComment(id);
         model.addAttribute("comment", comment);
         return "editComment";
+    }
+
+    @RequestMapping("/admin/users")
+    public String getUsers(Model model) {
+        List<User> users = this.userService.getUsers();
+        model.addAttribute("users", users);
+        return "users";
     }
 }
