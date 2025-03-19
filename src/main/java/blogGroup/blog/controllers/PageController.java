@@ -64,8 +64,15 @@ public class PageController {
 
     @RequestMapping("/admin/comments")
     public String getComments(Model model) {
-        List<Comment> comments = commentService.getComments();
+        List<Comment> comments = this.commentService.getComments();
         model.addAttribute("comments", comments);
         return "comments";
+    }
+
+    @RequestMapping("/admin/comments/edit/{id}")
+    public String getEditComment(@PathVariable Long id, Model model) {
+        Comment comment = this.commentService.getComment(id);
+        model.addAttribute("comment", comment);
+        return "editComment";
     }
 }

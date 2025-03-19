@@ -19,9 +19,15 @@ public class CommentController {
     }
 
     @PostMapping
-    public String edit(@ModelAttribute CommentRequestDTO commentRequestDTO) {
+    public String store(@ModelAttribute CommentRequestDTO commentRequestDTO) {
         this.commentService.createComment(commentRequestDTO);
         return "redirect:/articles/" + commentRequestDTO.getArticleId();
+    }
+
+    @PostMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, @ModelAttribute CommentRequestDTO commentRequestDTO) {
+        this.commentService.editComment(id, commentRequestDTO);
+        return "redirect:/admin/comments";
     }
 
     @GetMapping("/delete/{id}")

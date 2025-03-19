@@ -27,6 +27,10 @@ public class CommentService {
         return this.commentRepository.findAll();
     }
 
+    public Comment getComment(Long id) {
+        return this.commentRepository.findById(id).orElseThrow();
+    }
+
     public void createComment(CommentRequestDTO commentRequestDTO) {
         Article article = this.articleRepository.findById(commentRequestDTO.getArticleId()).orElseThrow();
         User author = this.userRepository.findById(2L).orElseThrow();
@@ -38,6 +42,13 @@ public class CommentService {
         this.commentRepository.save(comment);
         this.articleRepository.save(article);
         this.userRepository.save(author);
+    }
+
+    public void editComment(Long id, CommentRequestDTO commentRequestDTO) {
+        Comment comment = this.commentRepository.findById(id).orElseThrow();
+        if (commentRequestDTO.getContent() != null) comment.setContent(commentRequestDTO.getContent());
+
+        this.commentRepository.save(comment);
     }
 
     public void deleteComment(Long id) {
