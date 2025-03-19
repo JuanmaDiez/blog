@@ -23,4 +23,8 @@ public class UserService {
         User newUser = new User(userRequest.getFirstname(), userRequest.getLastname(), userRequest.getEmail(), userRequest.getPassword());
         userRepository.save(newUser);
     }
+
+    public void deleteUser(Long id) {
+        this.userRepository.deleteById(id);
+    }
 }
