@@ -42,6 +42,12 @@ public class PageController {
         return "article";
     }
 
+    @GetMapping
+    @RequestMapping("/login")
+    public String getLoginPage() {
+        return "login";
+    }
+
     @RequestMapping("/register")
     public String getRegisterPage() {
         return "register";
