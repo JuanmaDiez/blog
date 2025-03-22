@@ -1,15 +1,19 @@
 package blogGroup.blog.config;
 
+import blogGroup.blog.services.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -23,17 +27,28 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 public class SecurityConfig {
+
+    @Bean
+    public RoleHierarchy roleHierarchy() {
+        String hierarchy = "ROLE_ADMIN > ROLE_EDITOR > ROLE_WRITER > ROLE_READER";
+        return RoleHierarchyImpl.fromHierarchy(hierarchy);
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.authorizeHttpRequests(http -> {
+        return httpSecurity.csrf(AbstractHttpConfigurer::disable).httpBasic(Customizer.withDefaults()).authorizeHttpRequests(http -> {
                     http.requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/login").permitAll();
-                    http.requestMatchers(HttpMethod.POST, "/login").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/register").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/article/*").permitAll();
+                    http.requestMatchers(HttpMethod.GET, "/articles/*").permitAll();
+
+
+                    http.requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN");
                     http.requestMatchers(HttpMethod.GET, "/admin/*").hasRole("ADMIN");
+
                     http.anyRequest().denyAll();
                 })
                 .build();
@@ -45,18 +60,18 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthenticationProvider authenticationProvider(UserDetailsServiceImpl userDetailsService) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userDetailsService());
+        provider.setUserDetailsService(userDetailsService);
         return provider;
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
         List<UserDetails> userDetailsList = new ArrayList<>();
-        userDetailsList.add(User.withUsername("John").password("1234").roles("ADMIN").authorities("READ", "CREATE").build());
-        userDetailsList.add(User.withUsername("Manuel").password("1234").roles("USER").authorities("READ").build());
+        userDetailsList.add(User.withUsername("John").password("1234").roles("ADMIN").build());
+        userDetailsList.add(User.withUsername("Manuel").password("1234").roles("USER").build());
 
         return new InMemoryUserDetailsManager(userDetailsList);
     }

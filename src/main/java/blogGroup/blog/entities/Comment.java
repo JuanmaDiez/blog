@@ -23,7 +23,7 @@ public class Comment {
     private String content;
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "article_id")
@@ -39,7 +39,6 @@ public class Comment {
 
     public Comment(String content) {
         this.content = content;
-        this.createdAt = LocalDateTime.now();
     }
 
     public Long getId() {

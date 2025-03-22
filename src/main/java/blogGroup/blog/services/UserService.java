@@ -1,6 +1,7 @@
 package blogGroup.blog.services;
 
 import blogGroup.blog.dtos.UserRequestDTO;
+import blogGroup.blog.entities.Role;
 import blogGroup.blog.entities.User;
 import blogGroup.blog.repositories.UserRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,25 @@ public class UserService {
     }
 
     public void saveUser(UserRequestDTO userRequest) {
-        User newUser = new User(userRequest.getFirstname(), userRequest.getLastname(), userRequest.getEmail(), userRequest.getPassword());
+        Role role;
+        switch (userRequest.getRole()) {
+            case "READER":
+                role = Role.READER;
+                break;
+            case "WRITER":
+                role = Role.WRITER;
+                break;
+            case "EDITOR":
+                role = Role.EDITOR;
+                break;
+            case "ADMIN":
+                role = Role.ADMIN;
+                break;
+            default:
+                role = Role.READER;
+                break;
+        }
+        User newUser = new User(userRequest.getFirstname(), userRequest.getLastname(), userRequest.getEmail(), userRequest.getPassword(), role);
         this.userRepository.save(newUser);
     }
 

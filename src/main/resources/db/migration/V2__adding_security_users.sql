@@ -1,0 +1,6 @@
+ALTER TABLE users
+ADD COLUMN role VARCHAR(50) NOT NULL,
+ADD COLUMN is_enabled TINYINT(1) NOT NULL,
+ADD COLUMN account_non_expired TINYINT(1) NOT NULL,
+ADD COLUMN account_non_locked TINYINT(1) NOT NULL,
+ADD COLUMN credentials_non_expired TINYINT(1) NOT NULL;

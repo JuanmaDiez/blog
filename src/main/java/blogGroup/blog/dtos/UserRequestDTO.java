@@ -5,15 +5,17 @@ public class UserRequestDTO {
     private String lastname;
     private String email;
     private String password;
+    private String role;
 
     public UserRequestDTO() {
     }
 
-    public UserRequestDTO(String firstname, String lastname, String email, String password) {
+    public UserRequestDTO(String firstname, String lastname, String email, String password, String role) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public String getFirstname() {
@@ -48,6 +50,14 @@ public class UserRequestDTO {
         this.password = password;
     }
 
+    public String getRole() {
+        return this.role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "UserRequestDTO{" +
@@ -55,6 +65,7 @@ public class UserRequestDTO {
                 ", lastname='" + lastname + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }
