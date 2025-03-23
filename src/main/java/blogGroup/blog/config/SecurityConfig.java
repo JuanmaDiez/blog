@@ -1,5 +1,6 @@
 package blogGroup.blog.config;
 
+import blogGroup.blog.entities.Role;
 import blogGroup.blog.services.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,14 +44,28 @@ public class SecurityConfig {
                     http.requestMatchers(HttpMethod.GET, "/login").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/register").permitAll();
                     http.requestMatchers(HttpMethod.GET, "/article/*").permitAll();
-                    http.requestMatchers(HttpMethod.GET, "/articles/*").permitAll();
 
 
-                    http.requestMatchers(HttpMethod.GET, "/users").hasRole("ADMIN");
-                    http.requestMatchers(HttpMethod.GET, "/admin/*").hasRole("ADMIN");
+                    http.requestMatchers(HttpMethod.GET, "/admin", "/admin/**").hasRole(Role.EDITOR.name());
 
                     http.anyRequest().denyAll();
                 })
+                .formLogin(login -> login.loginPage("/login")
+                        .defaultSuccessUrl("/", true)
+                        .usernameParameter("email")
+                        .passwordParameter("password")
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll())
+                .sessionManagement(session -> session
+                        .sessionFixation().migrateSession()
+                        .maximumSessions(1)
+                        .expiredUrl("/login?expired")
+                )
                 .build();
     }
 
