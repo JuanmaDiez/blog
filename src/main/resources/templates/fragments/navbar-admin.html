@@ -4,6 +4,9 @@
 
         <h4 class="navbarTitle">Hack the Blog (ADMIN)</h4>
 
-        <a href="/" class="btn btn-danger">Log Out</a>
+        <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-danger">Log Out</button>
+        </form>
     </div>
 </nav>
