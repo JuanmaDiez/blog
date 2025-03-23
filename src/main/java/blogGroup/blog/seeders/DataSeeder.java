@@ -8,6 +8,7 @@ import blogGroup.blog.repositories.ArticleRepository;
 import blogGroup.blog.repositories.CommentRepository;
 import blogGroup.blog.repositories.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -15,11 +16,14 @@ public class DataSeeder {
     private final UserRepository userRepository;
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public DataSeeder(UserRepository userRepository, ArticleRepository articleRepository, CommentRepository commentRepository) {
+    public DataSeeder(UserRepository userRepository, ArticleRepository articleRepository,
+                      CommentRepository commentRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.articleRepository = articleRepository;
         this.commentRepository = commentRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -28,21 +32,21 @@ public class DataSeeder {
         john.setFirstname("John");
         john.setLastname("Ten");
         john.setEmail("jm10yap@gmail.com");
-        john.setPassword("password");
+        john.setPassword(this.passwordEncoder.encode("password"));
         john.setRole(Role.ADMIN);
 
         User fan = new User();
         fan.setFirstname("Paula");
         fan.setLastname("Cutruneo");
         fan.setEmail("paulic@gmail.com");
-        fan.setPassword("password");
+        fan.setPassword(this.passwordEncoder.encode("password"));
         fan.setRole(Role.READER);
 
         User fan2 = new User();
         fan2.setFirstname("Maups");
         fan2.setLastname("Loren");
         fan2.setEmail("maupsl@gmail.com");
-        fan2.setPassword("password");
+        fan2.setPassword(this.passwordEncoder.encode("password"));
         fan2.setRole(Role.WRITER);
 
         this.userRepository.save(john);
