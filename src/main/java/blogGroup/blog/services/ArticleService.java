@@ -22,8 +22,8 @@ public class ArticleService {
         this.commentRepository = commentRepository;
     }
 
-    public List<Article> getArticlesForHome(String query) {
-        return this.articleRepository.findAllByOrderByCreatedAtDesc();
+    public List<Article> getArticlesForHome(String filter) {
+        return this.articleRepository.findArticlesForHome(filter);
     }
 
     public Article getArticle(Long id) {

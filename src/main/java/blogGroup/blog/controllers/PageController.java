@@ -6,11 +6,15 @@ import blogGroup.blog.entities.User;
 import blogGroup.blog.services.ArticleService;
 import blogGroup.blog.services.CommentService;
 import blogGroup.blog.services.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -28,9 +32,16 @@ public class PageController {
 
     @GetMapping
     @RequestMapping("/")
-    public String getHomePage(Model model) {
-        List<Article> articles = articleService.getArticlesForHome(null);
+    public String getHomePage(@RequestParam(required = false) String filter, Model model) {
+        List<Article> articles = articleService.getArticlesForHome(filter);
         model.addAttribute("articles", articles);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails user = (UserDetails) authentication.getPrincipal();
+            model.addAttribute("user", user);
+        }
+
         return "home";
     }
 
